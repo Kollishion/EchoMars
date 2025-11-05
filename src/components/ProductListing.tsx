@@ -38,7 +38,6 @@ const ProductListing = () => {
               key={product.id}
               className="group bg-[#1a2234] rounded-2xl shadow-md hover:shadow-xl border border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
             >
-              {/* Image */}
               <div className="flex justify-center items-center bg-[#1f2942] p-6 h-56">
                 <img
                   src={product.image}
@@ -47,10 +46,9 @@ const ProductListing = () => {
                 />
               </div>
 
-              {/* Details */}
-              <div className="flex flex-col justify-between flex-grow p-5">
+              <div className="flex flex-col justify-between grow p-5">
                 <div>
-                  <h3 className="text-base font-semibold text-white line-clamp-2 mb-2 min-h-[3.5rem]">
+                  <h3 className="text-base font-semibold text-white line-clamp-2 mb-2 min-h-14">
                     {product.title}
                   </h3>
                   <p className="text-lg font-bold text-indigo-400">

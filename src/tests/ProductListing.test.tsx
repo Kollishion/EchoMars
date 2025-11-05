@@ -1,38 +1,70 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import ProductListing from "../components/ProductListing";
+import { useProductStore } from "../store/useProduct";
 
-beforeEach(() => {
-  vi.resetAllMocks();
+vi.mock("../store/useProduct.ts", () => {
+  return {
+    useProductStore: vi.fn(),
+  };
 });
 
-describe("ProductListing component", () => {
-  it("renders Loading... initially", () => {
-    render(<ProductListing />);
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
+describe("Product Listing Component", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
   });
-  it("fetches and displays products", async () => {
-    const fakeProducts = [
-      {
-        id: 1,
-        title: "Test Product",
-        price: 100,
-        description: "A test item",
-        category: "test",
-        image: "https://via.placeholder.com/150",
-      },
-    ];
-    
-    vi.spyOn(globalThis, "fetch").mockResolvedValue({
-      json: async () => fakeProducts,
-    } as Response);
 
-    render(<ProductListing />);
-
-    await waitFor(() => {
-      expect(screen.getByText("Test Product")).toBeInTheDocument();
+  test("Loading test", () => {
+    (useProductStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      products: [],
+      loading: true,
+      error: null,
+      fetchProducts: vi.fn(),
     });
 
-    expect(screen.getByText("$100")).toBeInTheDocument();
+    render(
+      <MemoryRouter>
+        <ProductListing />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+  });
+
+  test("Product list test", () => {
+    const mockProducts = [
+      {
+        id: 1,
+        title: "Product One",
+        price: 29.99,
+        image: "https://example.com/img1.jpg",
+      },
+      {
+        id: 2,
+        title: "Product Two",
+        price: 49.99,
+        image: "https://example.com/img2.jpg",
+      },
+    ];
+
+    (useProductStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      products: mockProducts,
+      loading: false,
+      error: null,
+      fetchProducts: vi.fn(),
+    });
+
+    render(
+      <MemoryRouter>
+        <ProductListing />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText("Our Products")).toBeInTheDocument();
+    expect(screen.getByText("Product One")).toBeInTheDocument();
+    expect(screen.getByText("Product Two")).toBeInTheDocument();
+
+    expect(screen.getAllByText("View Details")).toHaveLength(2);
   });
 });

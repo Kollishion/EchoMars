@@ -1,19 +1,26 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useProductStore } from "../store/useProduct";
 import { useEffect } from "react";
 import { Star } from "lucide-react";
+import { useCartStore } from "../store/useCart";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { products, loading, error, fetchProducts } = useProductStore();
   const productId = Number(id);
-
+  const { addToCart } = useCartStore();
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
   const product = products.find((p) => p.id === productId);
-
+  const navigate = useNavigate();
+  function toCart() {
+    if (product) {
+      addToCart(product, 1);
+      navigate("/cart");
+    }
+  }
   if (loading)
     return (
       <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-lg">
@@ -79,9 +86,14 @@ const ProductDetail = () => {
           </div>
 
           <div className="flex gap-4">
-            <button className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold text-lg shadow-md hover:shadow-lg transition-all duration-200">
-              Add to Cart
-            </button>
+            <div>
+              <button
+                className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold text-lg shadow-md hover:shadow-lg transition-all duration-200"
+                onClick={toCart}
+              >
+                Add to Cart
+              </button>
+            </div>
             <button className="flex-1 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800 py-3 rounded-xl font-semibold text-lg transition-all duration-200">
               Buy Now
             </button>

@@ -9,5 +9,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/setupTests.ts",
+
+    exclude: ["node_modules", "playwright_tests", "e2e", "tests/e2e"],
   },
 } as UserConfig);
