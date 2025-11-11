@@ -2,8 +2,10 @@ import { useCartStore } from "../store/useCart";
 import { RxCross2 } from "react-icons/rx";
 import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const {
     cart,
     removeFromCart,
@@ -83,7 +85,10 @@ const Cart = () => {
             >
               Clear Cart
             </button>
-            <button className="w-full py-2 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-500 transition">
+            <button
+              className="w-full py-2 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-500 transition"
+              onClick={() => navigate("/checkout")}
+            >
               Checkout
             </button>
             <a
