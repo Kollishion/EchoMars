@@ -12,9 +12,10 @@ const ProductListing = () => {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center h-screen text-gray-700 dark:text-gray-200">
-        Loading...
-      </div>
+      <div
+        data-testid="loader"
+        className="flex justify-center items-center h-screen bg-gray-900 text-white text-lg loader"
+      />
     );
 
   if (error)

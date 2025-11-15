@@ -16,7 +16,8 @@ describe("Product Listing Component", () => {
   });
 
   test("Loading test", () => {
-    (useProductStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    const mockedProductStore = vi.mocked(useProductStore);
+    mockedProductStore.mockReturnValue({
       products: [],
       loading: true,
       error: null,
@@ -29,7 +30,7 @@ describe("Product Listing Component", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByTestId("loader")).toBeInTheDocument();
   });
 
   test("Product list test", () => {
@@ -47,8 +48,8 @@ describe("Product Listing Component", () => {
         image: "https://example.com/img2.jpg",
       },
     ];
-
-    (useProductStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    const mockedProductStore = vi.mocked(useProductStore);
+    mockedProductStore.mockReturnValue({
       products: mockProducts,
       loading: false,
       error: null,

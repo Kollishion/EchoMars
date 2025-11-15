@@ -6,7 +6,7 @@ interface CartItem extends Product {
   quantity: number;
 }
 
-interface CartStore {
+export interface CartStore {
   cart: CartItem[];
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (id: number) => void;

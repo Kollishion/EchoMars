@@ -1,11 +1,12 @@
 import { useState } from "react";
 import FormSpanError from "./FormSpanError";
-
+import { useCheckoutStore } from "../store/useCheckout";
 interface CheckoutFormProps {
   onNext: () => void;
 }
 
 export default function CheckoutForm({ onNext }: CheckoutFormProps) {
+  const { updateField } = useCheckoutStore();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,12 +43,13 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             First Name
           </label>
           <input
-            name="firstName"
+            name="firstname"
             type="text"
             placeholder="Enter First Name"
             className={`w-full bg-gray-900 border ${
               errors.firstName ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("firstname", e.target.value)}
           />
           {errors.firstName && <FormSpanError FormError={errors.firstName} />}
         </div>
@@ -57,12 +59,13 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             Last Name
           </label>
           <input
-            name="lastName"
+            name="lastname"
             type="text"
             placeholder="Enter Last Name"
             className={`w-full bg-gray-900 border ${
               errors.lastName ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("lastname", e.target.value)}
           />
           {errors.lastName && <FormSpanError FormError={errors.lastName} />}
         </div>
@@ -78,6 +81,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`w-full bg-gray-900 border ${
               errors.email ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("email", e.target.value)}
           />
           {errors.email && <FormSpanError FormError={errors.email} />}
         </div>
@@ -94,6 +98,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`no-spinner w-full bg-gray-900 border ${
               errors.phone ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("phone", e.target.value)}
           />
           {errors.phone && <FormSpanError FormError={errors.phone} />}
         </div>
@@ -109,6 +114,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`w-full bg-gray-900 border ${
               errors.address ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("address", e.target.value)}
           />
           {errors.address && <FormSpanError FormError={errors.address} />}
         </div>
@@ -124,6 +130,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`w-full bg-gray-900 border ${
               errors.city ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("city", e.target.value)}
           />
           {errors.city && <FormSpanError FormError={errors.city} />}
         </div>
@@ -139,6 +146,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`w-full bg-gray-900 border ${
               errors.state ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("state", e.target.value)}
           />
           {errors.state && <FormSpanError FormError={errors.state} />}
         </div>
@@ -155,6 +163,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`no-spinner w-full bg-gray-900 border ${
               errors.zip ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("zip", e.target.value)}
           />
           {errors.zip && <FormSpanError FormError={errors.zip} />}
         </div>
@@ -169,6 +178,7 @@ export default function CheckoutForm({ onNext }: CheckoutFormProps) {
             className={`w-full bg-gray-900 border ${
               errors.landmark ? "border-red-500" : "border-gray-700"
             } text-gray-100 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500`}
+            onChange={(e) => updateField("landmark", e.target.value)}
           />
           {errors.landmark && <FormSpanError FormError={errors.landmark} />}
         </div>

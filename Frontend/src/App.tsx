@@ -3,6 +3,7 @@ import ProductListing from "./components/ProductListing";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Checkout from "./pages/Checkout";
+
 const App = () => {
   return (
     <>

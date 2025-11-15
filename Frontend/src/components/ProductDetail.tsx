@@ -23,9 +23,10 @@ const ProductDetail = () => {
   }
   if (loading)
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-lg">
-        Loading...
-      </div>
+      <div
+        data-testid="loader"
+        className="flex justify-center items-center h-screen bg-gray-900 text-white text-lg loader"
+      />
     );
 
   if (error)
@@ -58,7 +59,6 @@ const ProductDetail = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
               {product.title}
             </h1>
-
             <div className="flex items-center gap-1 mb-5">
               {[...Array(5)].map((_, i) => (
                 <Star
@@ -90,11 +90,15 @@ const ProductDetail = () => {
               <button
                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold text-lg shadow-md hover:shadow-lg transition-all duration-200"
                 onClick={toCart}
+                role="Add to Cart"
               >
                 Add to Cart
               </button>
             </div>
-            <button className="flex-1 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800 py-3 rounded-xl font-semibold text-lg transition-all duration-200">
+            <button
+              className="flex-1 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800 py-3 rounded-xl font-semibold text-lg transition-all duration-200"
+              role="Buy Now"
+            >
               Buy Now
             </button>
           </div>
