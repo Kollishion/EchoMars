@@ -4,7 +4,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-const Cart = () => {
+export const Cart = () => {
   const navigate = useNavigate();
   const {
     cart,
@@ -18,13 +18,13 @@ const Cart = () => {
   if (cart.length === 0)
     return (
       <div className="flex justify-center items-center h-screen text-gray-400">
-        Your cart is empty 🛒
+        Your cart is empty
       </div>
     );
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-200 flex flex-col items-center py-10 px-4">
-      <h1 className="text-3xl font-bold text-blue-400 mb-8">
+      <h1 role="TotalItems" className="text-3xl font-bold text-blue-400 mb-8">
         My Cart ({totalItems})
       </h1>
 
@@ -39,15 +39,19 @@ const Cart = () => {
                 src={item.image}
                 alt={item.title}
                 className="w-16 h-16 rounded-md object-cover"
+                role="image"
               />
               <div>
                 <h3 className="text-sm font-semibold">{item.title}</h3>
-                <p className="text-gray-400 text-xs mt-1">${item.price}</p>
+                <p role="Price" className="text-gray-400 text-xs mt-1">
+                  ${item.price}
+                </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <button
+                role="decrement"
                 onClick={() =>
                   updateQuantity(item.id, Math.max(1, item.quantity - 1))
                 }
@@ -57,12 +61,14 @@ const Cart = () => {
               </button>
               <span className="px-2 text-sm">{item.quantity}</span>
               <button
+                role="increment"
                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
                 className="text-gray-300 hover:text-blue-400"
               >
                 <IoAddOutline />
               </button>
               <button
+                role="removeFromCart"
                 onClick={() => removeFromCart(item.id)}
                 className="ml-3 text-gray-500 hover:text-red-500 transition"
               >
@@ -80,6 +86,7 @@ const Cart = () => {
 
           <div className="flex flex-col gap-3">
             <button
+              role="clearCart"
               onClick={clearCart}
               className="w-full py-2 border border-red-600 text-red-500 rounded-md hover:bg-red-600 hover:text-white transition"
             >
