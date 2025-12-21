@@ -1,22 +1,29 @@
-import { useEffect } from "react";
-import { useProductStore } from "../store/useProduct";
-import type { Product } from "../store/useProduct";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import type { Product } from '../store/useProduct';
+import { useProductStore } from '../store/useProduct';
+import SearchBar from './SearchBar';
 
 const ProductListing = () => {
-  const { products, loading, error, fetchProducts } = useProductStore();
+  const { loading, error, fetchProducts } = useProductStore();
+  const products = useProductStore((state) => state.products);
+  const searchText = useProductStore((state) => state.searchText);
+  const filteredProducts = useMemo(() => {
+    const search = searchText.toLowerCase();
+    return products.filter((p) => p.title.toLowerCase().includes(search));
+  }, [products, searchText]);
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
-  if (loading)
+  if (loading) {
     return (
-      <div
-        data-testid="loader"
-        className="flex justify-center items-center h-screen bg-gray-900 text-white text-lg loader"
-      />
+      <div className="fixed inset-0 flex items-center justify-center bg-[#0e1320]">
+        <div data-testid="loader" className="loader" />
+      </div>
     );
+  }
 
   if (error)
     return (
@@ -28,12 +35,13 @@ const ProductListing = () => {
   return (
     <div className="min-h-screen bg-[#0e1320] py-12 px-6">
       <div className="max-w-7xl mx-auto">
+        <SearchBar />
         <h1 className="text-3xl font-bold text-white mb-10 text-center">
           Our Products
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map((product: Product) => (
+          {filteredProducts.map((product: Product) => (
             <Link
               to={`/products/${product.id}`}
               key={product.id}

@@ -1,8 +1,8 @@
-import { useCartStore } from "../store/useCart";
-import { RxCross2 } from "react-icons/rx";
-import { IoAddOutline } from "react-icons/io5";
-import { FiMinus } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { FiMinus } from 'react-icons/fi';
+import { IoAddOutline } from 'react-icons/io5';
+import { RxCross2 } from 'react-icons/rx';
+import { useNavigate } from 'react-router-dom';
+import { useCartStore } from '../store/useCart';
 
 export const Cart = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const Cart = () => {
       <div className="w-full max-w-lg bg-gray-900 rounded-2xl shadow-lg border border-gray-800 p-6">
         {cart.map((item) => (
           <div
-            key={item.id}
+            key={item.product_id}
             className="flex items-center justify-between mb-6 border-b border-gray-800 pb-4"
           >
             <div className="flex items-center gap-4">
@@ -53,7 +53,10 @@ export const Cart = () => {
               <button
                 role="decrement"
                 onClick={() =>
-                  updateQuantity(item.id, Math.max(1, item.quantity - 1))
+                  updateQuantity(
+                    item.product_id,
+                    Math.max(1, item.quantity - 1)
+                  )
                 }
                 className="text-gray-300 hover:text-blue-400"
               >
@@ -62,14 +65,16 @@ export const Cart = () => {
               <span className="px-2 text-sm">{item.quantity}</span>
               <button
                 role="increment"
-                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                onClick={() =>
+                  updateQuantity(item.product_id, item.quantity + 1)
+                }
                 className="text-gray-300 hover:text-blue-400"
               >
                 <IoAddOutline />
               </button>
               <button
                 role="removeFromCart"
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => removeFromCart(item.product_id)}
                 className="ml-3 text-gray-500 hover:text-red-500 transition"
               >
                 <RxCross2 />
@@ -80,7 +85,7 @@ export const Cart = () => {
 
         <div className="text-center mt-6">
           <p className="text-lg font-semibold mb-4">
-            Total:{" "}
+            Total:{' '}
             <span className="text-blue-400">${totalPrice.toFixed(2)}</span>
           </p>
 
@@ -94,7 +99,7 @@ export const Cart = () => {
             </button>
             <button
               className="w-full py-2 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-500 transition"
-              onClick={() => navigate("/checkout")}
+              onClick={() => navigate('/checkout')}
             >
               Checkout
             </button>

@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import type { Product } from "./useProduct";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import type { Product } from './useProduct';
 
 interface CartItem extends Product {
   quantity: number;
@@ -9,8 +9,8 @@ interface CartItem extends Product {
 export interface CartStore {
   cart: CartItem[];
   addToCart: (product: Product, quantity?: number) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (product_id: number) => void;
+  updateQuantity: (product_id: number, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -22,11 +22,13 @@ export const useCartStore = create<CartStore>()(
       cart: [],
       addToCart: (product, quantity = 1) => {
         const cart = get().cart;
-        const existingItem = cart.find((item) => item.id === product.id);
+        const existingItem = cart.find(
+          (item) => item.product_id === product.product_id
+        );
         let updatedCart: CartItem[];
         if (existingItem) {
           updatedCart = cart.map((item) =>
-            item.id === product.id
+            item.product_id === product.product_id
               ? { ...item, quantity: item.quantity + quantity }
               : item
           );
@@ -44,7 +46,9 @@ export const useCartStore = create<CartStore>()(
       },
       removeFromCart: (id) => {
         const cart = get().cart;
-        const updatedCart = cart.filter((item: CartItem) => item.id !== id);
+        const updatedCart = cart.filter(
+          (item: CartItem) => item.product_id !== id
+        );
         set({
           cart: updatedCart,
           totalItems: updatedCart.reduce((sum, item) => sum + item.quantity, 0),
@@ -57,7 +61,7 @@ export const useCartStore = create<CartStore>()(
       updateQuantity: (id, quantity = 1) => {
         const cart = get().cart;
         const updatedCart: CartItem[] = cart.map((item: CartItem) =>
-          item.id === id ? { ...item, quantity } : item
+          item.product_id === id ? { ...item, quantity } : item
         );
         const totalItems = updatedCart.reduce(
           (sum: number, item: CartItem) => sum + item.quantity,
@@ -75,6 +79,6 @@ export const useCartStore = create<CartStore>()(
       totalItems: 0,
       totalPrice: 0,
     }),
-    { name: "cart-storage" }
+    { name: 'cart-storage' }
   )
 );

@@ -1,4 +1,11 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #0e1320; 
+}
 
 .no-spinner::-webkit-outer-spin-button,
 .no-spinner::-webkit-inner-spin-button {
@@ -20,7 +27,7 @@
 }
 .loader::before,
 .loader::after {
-  content: "";
+  content: '';
   box-sizing: border-box;
   position: absolute;
   inset: 0px;
@@ -29,7 +36,7 @@
   animation: prixClipFix 2s linear infinite;
 }
 .loader::after {
-  border-color: #0008ffaa;
+  border-color: #0008ff86;
   animation: prixClipFix 2s linear infinite, rotate 0.5s linear infinite reverse;
   inset: 6px;
 }
