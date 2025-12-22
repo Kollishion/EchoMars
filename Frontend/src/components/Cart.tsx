@@ -1,9 +1,8 @@
 import { FiMinus } from 'react-icons/fi';
 import { IoAddOutline } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/useCart';
-
 export const Cart = () => {
   const navigate = useNavigate();
   const {
@@ -19,6 +18,9 @@ export const Cart = () => {
     return (
       <div className="flex justify-center items-center h-screen text-gray-400">
         Your cart is empty
+        <Link to="/">
+          <button>Go back to products</button>
+        </Link>
       </div>
     );
 

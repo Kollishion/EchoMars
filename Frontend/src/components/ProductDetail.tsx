@@ -1,24 +1,33 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useProductStore } from "../store/useProduct";
-import { useEffect } from "react";
-import { Star } from "lucide-react";
-import { useCartStore } from "../store/useCart";
+import { Star } from 'lucide-react';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCartStore } from '../store/useCart';
+import { useProductStore } from '../store/useProduct';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { products, loading, error, fetchProducts } = useProductStore();
   const productId = Number(id);
-  const { addToCart } = useCartStore();
+  const { addToCart, clearCart } = useCartStore();
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    if (products.length === 0) {
+      fetchProducts();
+    }
+  }, [products.length, fetchProducts]);
 
   const product = products.find((p) => p.id === productId);
   const navigate = useNavigate();
   function toCart() {
     if (product) {
       addToCart(product, 1);
-      navigate("/cart");
+      navigate('/cart');
+    }
+  }
+  function toBuy() {
+    if (product) {
+      clearCart();
+      addToCart(product, 1);
+      navigate('/checkout');
     }
   }
   if (loading)
@@ -66,8 +75,8 @@ const ProductDetail = () => {
                   size={20}
                   className={`${
                     i < Math.round(product.rating?.rate || 4)
-                      ? "fill-yellow-400 text-yellow-400"
-                      : "text-gray-300 dark:text-gray-600"
+                      ? 'fill-yellow-400 text-yellow-400'
+                      : 'text-gray-300 dark:text-gray-600'
                   }`}
                 />
               ))}
@@ -98,6 +107,7 @@ const ProductDetail = () => {
             <button
               className="flex-1 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800 py-3 rounded-xl font-semibold text-lg transition-all duration-200"
               role="Buy Now"
+              onClick={toBuy}
             >
               Buy Now
             </button>
