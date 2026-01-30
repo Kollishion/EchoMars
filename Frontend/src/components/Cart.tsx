@@ -3,6 +3,7 @@ import { IoAddOutline } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/useCart';
+import { useSnapshotCheckoutStore } from '../store/useCheckoutSnapshot';
 export const Cart = () => {
   const navigate = useNavigate();
   const {
@@ -14,6 +15,8 @@ export const Cart = () => {
     totalPrice,
   } = useCartStore();
 
+  const { createSnapshot } = useSnapshotCheckoutStore();
+
   if (cart.length === 0)
     return (
       <div className="flex justify-center items-center h-screen text-gray-400">
@@ -23,6 +26,11 @@ export const Cart = () => {
         </Link>
       </div>
     );
+
+  async function handleCheckoutFlow() {
+    createSnapshot(cart, totalPrice);
+    await navigate('/checkout');
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-200 flex flex-col items-center py-10 px-4">
@@ -101,7 +109,7 @@ export const Cart = () => {
             </button>
             <button
               className="w-full py-2 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-500 transition"
-              onClick={() => navigate('/checkout')}
+              onClick={() => handleCheckoutFlow()}
             >
               Checkout
             </button>

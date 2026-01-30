@@ -1,26 +1,30 @@
-import { useCartStore } from "../store/useCart";
-import { useCheckoutStore } from "../store/useCheckout";
+import toast from 'react-hot-toast';
+import { useCartStore } from '../store/useCart';
+import { useCheckoutStore } from '../store/useCheckout';
+import { useSnapshotCheckoutStore } from '../store/useCheckoutSnapshot';
 
 interface OrderSummaryProps {
   onBack: () => void;
 }
 
 export default function OrderSummary({ onBack }: OrderSummaryProps) {
-  const { cart, totalItems, totalPrice, clearCart } = useCartStore();
+  const { items, totalPrice, checkoutStatus, markPaid } =
+    useSnapshotCheckoutStore();
   const { data } = useCheckoutStore();
-
+  const { clearCart } = useCartStore();
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="bg-gray-800 p-8 rounded-2xl shadow-lg">
       <h2 className="text-2xl font-semibold mb-6">Order Summary</h2>
 
-      <ul className="space-y-3 text-gray-300">
-        {cart.map((item) => (
+      {/* <ul className="space-y-3 text-gray-300">
+        {items.map((item) => (
           <li key={item.id} className="flex justify-between">
             <span>{item.title}</span>
             <span>${(item.price * item.quantity).toFixed(2)}</span>
           </li>
         ))}
-      </ul>
+      </ul> */}
 
       <hr className="my-6 border-gray-700" />
 
@@ -73,9 +77,11 @@ export default function OrderSummary({ onBack }: OrderSummaryProps) {
         </button>
 
         <button
+          disabled={checkoutStatus !== 'PENDING'}
           onClick={() => {
+            markPaid();
             clearCart();
-            alert("Order placed successfully!");
+            toast.success('Order placed successfully!');
           }}
           className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white"
         >

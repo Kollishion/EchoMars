@@ -1,8 +1,12 @@
-import { BsCashCoin } from "react-icons/bs";
+import { BsCashCoin } from 'react-icons/bs';
 
 interface PaymentMethodProps {
   onNext: () => void;
   onBack: () => void;
+}
+
+function paymentOption(i: number) {
+  console.log(i);
 }
 
 export default function PaymentMethod({ onNext, onBack }: PaymentMethodProps) {
@@ -12,7 +16,13 @@ export default function PaymentMethod({ onNext, onBack }: PaymentMethodProps) {
 
       <div className="grid gap-6 md:grid-cols-2">
         <label className="bg-gray-900 border border-gray-700 hover:border-blue-600 transition rounded-lg p-4 cursor-pointer flex flex-col items-center text-center">
-          <input type="radio" name="method" className="hidden" defaultChecked />
+          <input
+            type="radio"
+            name="method"
+            className="hidden"
+            defaultChecked
+            onClick={() => paymentOption(1)}
+          />
           <img
             src="https://readymadeui.com/images/visa.webp"
             className="w-16 mb-2"

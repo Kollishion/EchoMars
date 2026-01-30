@@ -1,7 +1,7 @@
-import { persist } from "zustand/middleware";
-import { create } from "zustand";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-interface CheckoutData {
+export interface CheckoutData {
   firstname: string;
   lastname: string;
   email: string;
@@ -23,15 +23,15 @@ export const useCheckoutStore = create<CheckoutStore>()(
   persist(
     (set) => ({
       data: {
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        state: "",
-        zip: "",
-        landmark: "",
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        landmark: '',
       },
       updateField: (field: keyof CheckoutData, value: string) =>
         set((state) => ({
@@ -40,18 +40,18 @@ export const useCheckoutStore = create<CheckoutStore>()(
       clearCheckout: () =>
         set({
           data: {
-            firstname: "",
-            lastname: "",
-            email: "",
-            phone: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: "",
-            landmark: "",
+            firstname: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            address: '',
+            city: '',
+            state: '',
+            zip: '',
+            landmark: '',
           },
         }),
     }),
-    { name: "checkout-storage" }
+    { name: 'checkout-storage' }
   )
 );
