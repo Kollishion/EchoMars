@@ -1,0 +1,1 @@
+{"version":3,"file":"product.schema.d.ts","sourceRoot":"","sources":["../../../src/server/schemas/product.schema.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,CAAC,EAAE,MAAM,KAAK,CAAC;AAExB,eAAO,MAAM,YAAY;;;;;;;;;;;;iBAYvB,CAAC;AAEH,MAAM,MAAM,OAAO,GAAG,CAAC,CAAC,KAAK,CAAC,OAAO,YAAY,CAAC,CAAC;AAEnD,eAAO,MAAM,mBAAmB;;;;;;;;;;;;kBAAwB,CAAC"}

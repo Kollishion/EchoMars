@@ -1,0 +1,20 @@
+import { router, publicProcedure } from '../trpc.js';
+import { z } from 'zod';
+import { getAllProductsModel } from '../schemas/product.schema.js';
+const products = [{ id: 12459, rating: { rate: 4, count: 4 }, productId: 1, title: 'Iphone 16', price: 1000, description: 'The iPhone 16 redefines performance and design with the A18 Bionic chip, brighter Super Retina XDR display, and enhanced battery life. Featuring advanced AI-powered photography, Dynamic Island, and iOS 18’s customizable interface, it’s Apple’s most intelligent and refined iPhone yet.', category: 'Smartphone', image: 'https://www.iphone.com' }];
+export const productRouter = router({
+    getAllProducts: publicProcedure
+        .meta({
+        openapi: {
+            method: 'GET',
+            path: '/products',
+            summary: 'Get all products',
+        }
+    })
+        .input(z.undefined())
+        .output(getAllProductsModel)
+        .query(() => {
+        return products;
+    })
+});
+//# sourceMappingURL=product.routes.js.map

@@ -1,8 +1,8 @@
 import { router } from './trpc.js';
-
+import { productRouter } from './routes/product.routes.js';
 //Root Router
-const appRouter = router({
-	//...
+export const appRouter = router({
+	product: productRouter
 });
 
 export type AppRouter = typeof appRouter;
