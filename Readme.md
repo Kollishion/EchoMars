@@ -76,9 +76,11 @@ Playwright
 
 Backend
 
-Node.js / Express (temporary)
+Node.js / Express 
 
-Spring Boot (planned upgrade)
+Prisma (working on it)
+
+Kafka (coming soon)
 
 Project Structure
 EchoMars/
@@ -113,14 +115,6 @@ Backend Setup (Node.js placeholder)
 cd Backend
 node server.js
 
-
-Placeholder server will run at:
-
-http://localhost:5000
-
-
-(Will be replaced by Spring Boot)
-
 Run Tests
 Unit Tests
 npm run test
@@ -138,8 +132,6 @@ Frontend/dist
 
 Roadmap
 
- Migrate backend to Spring Boot + Maven
-
  Full JWT authentication
 
  Admin product management
@@ -151,6 +143,8 @@ Roadmap
  Dark mode theme
 
  User profile pages
+
+ Proper payment system
 
 Contributing
 
