@@ -1,5 +1,3 @@
-import React from "react";
-
 interface MyButtonProps {
   label: string;
   onClick?: () => void;

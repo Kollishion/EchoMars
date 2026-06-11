@@ -4,7 +4,7 @@ import { createContext } from './server/context.js';
 import { appRouter } from './server/index.js';
 import { generateOpenApiDocument, createOpenApiExpressMiddleware } from 'trpc-to-openapi';
 import * as fs from 'fs/promises';
-
+import connectCloudinary from "./config/cloudinary.js";
 const app = express();
 const openApiDocument = generateOpenApiDocument(appRouter, {
 	baseUrl: 'http://localhost:8000/api',
@@ -36,5 +36,5 @@ app.get('/openApi.json', (req, res) => {
 });
 
 app.listen(8000, () => console.log('Express is running on PORT 8000'));
-
+connectCloudinary();
 
