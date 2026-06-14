@@ -17,7 +17,40 @@ model Product {
   image       String
   rating      Rating
 }
+model User {
+	id 	    String 	@id @default(auto()) @map("_id") @db.ObjectId
+	firstName   String
+	lastName    String
+	address	    String
+	city	    String
+	state       String
+	zip	    String
+	landmark    String?
+}
+model Order {
+	id    	    		String 		@id @default(auto()) @map("_id") @db.ObjectId
+	userId      		String 		@db.ObjectId
+	shippingAddress 	ShippingAddress 
+	items			OrderItem[]
+	totalPrice		Float
+	status			String
+	createdAt		DateTime  @default(now())
 
+} 
+type shippingAddress {
+	address	    String
+	city 	    String
+	state	    String
+	zip 	    String
+	landmark    String?	
+}
+type OrderItem{
+	productId   Int
+	title	    String
+	price	    Float
+	image	    String
+	quantity    Int
+}
 type Rating {
   rate  Float
   count Int
